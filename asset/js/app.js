@@ -4,8 +4,13 @@ const loadCategories = async () => {
   const data = await res.json();
   displayCategories(data.data.news_category);
 };
+const mainNewsBox = document.getElementById("main-news-box");
 
 const allCategories = document.getElementById("all-categories");
+const noResult = document.getElementById("no-result");
+const resultFound = document.getElementById("result-found");
+const resultNumber = document.getElementById("result-number");
+const allNewsTop = document.getElementById("all-news");
 
 const displayCategories = (catagories) => {
   catagories.forEach((category) => {
@@ -13,19 +18,22 @@ const displayCategories = (catagories) => {
 
     const li = document.createElement("li");
     li.innerHTML = `
-      <a onclick="findId('${category.category_id}')" >${category.category_name}</a>
+      <a onclick="findId('${category.category_id}', target)" >${category.category_name}</a>
     `;
 
     li.classList.add("categories-list");
     allCategories.appendChild(li);
+
+    console.log(mainNewsBox);
   });
 };
 
 loadCategories();
 
 // li>a Click handler
-const findId = (id) => {
-  loadNews(id);
+const findId = (category_id, dd) => {
+  loadNews(category_id);
+  // console.log(dd)
 };
 
 const loadNews = async (category_id) => {
@@ -37,40 +45,58 @@ const loadNews = async (category_id) => {
 };
 
 const displayNewsByCategory = (allNews) => {
-  const mainNewsBox = document.getElementById("main-news-box");
+  console.log(allNews);
+  const allNewsLength = allNews.length;
+  if (allNews.length === 0) {
+    noResult.classList.remove("d-none");
+    resultFound.classList.add("d-none");
+    allNewsTop.classList.add("d-none");
+  } else {
+    noResult.classList.add("d-none");
+    resultFound.classList.remove("d-none");
+    resultFound.innerText = `${allNewsLength} items found`;
+    allNewsTop.classList.add("d-none");
+  }
+
+  console.log(allNewsLength);
+  mainNewsBox.innerHTML = ``;
+
   allNews.forEach((news) => {
+    // var size = Object.keys(myObj).length;
+    const {
+      title,
+      thumbnail_url,
+      details,
+      total_view,
+      author: { name, img, published_date },
+    } = news;
     const newsDiv = document.createElement("div");
     newsDiv.innerHTML = `
-    <div class="d-flex justify-content-between align-items-center gap-3 bg-white rounded p-3 my-4">
-    <div class="w-25">
-        <img class="img-fluid" src="./asset/images/bg.jpg" alt="">
+    
+    <div class="row g-0 justify-content-between align-items-center bg-white rounded p-3 my-4">
+    <div class="col-md-3">
+        <img class="img-fluid" src="${
+          thumbnail_url ? thumbnail_url : " No Image Available"
+        }" alt="">
     </div>
-    <div class="py-2">
+    <div class="col-md-9 py-2">
         <div class="news-text">
-            <h2 class="fw-bold">The best fashion influencers to follow for sartorial inspiration
-            </h2>
-            <p>From our favourite UK influencers to the best missives from Milan and the coolest New
-                Yorkers, read on some of the best fashion blogs out there, and for even more
-                inspiration, do
-                head to our separate black fashion influencer round-up.
-
-                Fancy some shopping deals? Check out these amazing sales: Zara Black Friday, ASOS
-                Black
-                Friday, Missoma Black Friday and Gucci Black Friday...</p>
+            <h2 class="fw-bold">${title}</h2>
+            <p>${details}</p>
         </div>
 
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex gap-3">
-                <img class="news-author rounded-circle" src="./asset/images/rony.jpg" alt="">
+                <img class="news-author rounded-circle" src="${img}" alt="">
                 <h6>
-                    <span class="d-block">Jane Cooper</span>
+                    <span class="d-block"> ${name ? name : "No Name"}</span>
                     <small class="d-block">jan 10, 2022</small>
                 </h6>
             </div>
 
             <div>
                 <i class="bi bi-eye"></i>
-                <span class="fw-bold">1.5</span>
+                <span class="fw-bold">${total_view ? total_view : "NA"}</span>
             </div>
 
             <div>
@@ -87,11 +113,10 @@ const displayNewsByCategory = (allNews) => {
         </div>
     </div>
 </div>
-      
       `;
     mainNewsBox.appendChild(newsDiv);
-    console.log(news.title);
+    // console.log(news);
   });
 
-  //   console.log(allNews);
+  // console.log(allNews);
 };
