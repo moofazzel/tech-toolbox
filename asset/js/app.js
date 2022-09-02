@@ -22,17 +22,38 @@ const displayCategories = (catagories) => {
     `;
 
     li.classList.add("categories-list");
-    allCategories.appendChild(li);
+      allCategories.appendChild(li);
+      
 
+//       let newsDiv = document.createElement("div");
+//       newsDiv.innerHTML = `
+      
+//       <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque!</p>
+//     `
+// .mainNewsBox.appendChild(newsDiv)
     console.log(mainNewsBox);
   });
 };
 
 loadCategories();
 
+// loader / spinner
+const toggleSpinner = (isLoading) => {
+    const loadingSection = document.getElementById("loading");
+    if (isLoading) {
+      loadingSection.classList.remove("d-none");
+    } else {
+      loadingSection.classList.add("d-none");
+    }
+};
+  
+toggleSpinner(false);
+
+
 // li>a Click handler
-const findId = (category_id, dd) => {
-  loadNews(category_id);
+const findId = (category_id) => {
+    loadNews(category_id);
+    toggleSpinner(true);
   // console.log(dd)
 };
 
@@ -50,7 +71,9 @@ const displayNewsByCategory = (allNews) => {
   if (allNews.length === 0) {
     noResult.classList.remove("d-none");
     resultFound.classList.add("d-none");
-    allNewsTop.classList.add("d-none");
+      allNewsTop.classList.add("d-none");
+    toggleSpinner(false);
+      
   } else {
     noResult.classList.add("d-none");
     resultFound.classList.remove("d-none");
@@ -70,7 +93,7 @@ const displayNewsByCategory = (allNews) => {
       total_view,
       author: { name, img, published_date },
     } = news;
-    const newsDiv = document.createElement("div");
+    let newsDiv = document.createElement("div");
     newsDiv.innerHTML = `
     
     <div class="row g-0 justify-content-between align-items-center bg-white rounded p-3 my-4">
@@ -116,6 +139,7 @@ const displayNewsByCategory = (allNews) => {
       `;
     mainNewsBox.appendChild(newsDiv);
     // console.log(news);
+    toggleSpinner(false);
   });
 
   // console.log(allNews);
