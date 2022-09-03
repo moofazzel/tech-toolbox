@@ -26,21 +26,13 @@ const displayCategories = (catagories) => {
     li.innerHTML = `
       <a onclick="findId('${category.category_id}', target)" >${category.category_name}</a>
     `;
-
     li.classList.add("categories-list");
     allCategories.appendChild(li);
-
-    //       let newsDiv = document.createElement("div");
-    //       newsDiv.innerHTML = `
-
-    //       <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque!</p>
-    //     `
-    // .mainNewsBox.appendChild(newsDiv)
-    // console.log(mainNewsBox);
   });
 };
 
 loadCategories();
+
 
 // loader / spinner
 const toggleSpinner = (isLoading) => {
@@ -53,7 +45,7 @@ const toggleSpinner = (isLoading) => {
 };
 
 // Character count for description
-function carCounts(c) {
+function charCounts(c) {
   if (c.length > charCount) {
     return c.substring(0, 140) + "<br> <br>" + c.substring(140, 300) + " ...";
   } else {
@@ -70,16 +62,18 @@ const findId = (category_id) => {
   // console.log(dd)
 };
 
+
 const loadNews = async (category_id) => {
   const url = `https://openapi.programming-hero.com/api/news/category/${category_id} 
   `;
+  console.log(url)
   try {
-	const res = await fetch(url);
-	  const data = await res.json();
-	  displayNewsByCategory(data.data);
-} catch (error) {
-  console.log('Error: Load News', error);
-}
+    const res = await fetch(url);
+    const data = await res.json();
+    displayNewsByCategory(data.data);
+  } catch (error) {
+    console.log("Error: Load News", error);
+  }
 };
 
 const displayNewsByCategory = (allNews) => {
@@ -97,22 +91,34 @@ const displayNewsByCategory = (allNews) => {
     allNewsTop.classList.add("d-none");
   }
 
-  // console.log(allNewsLength);
+  console.log(allNews);
   mainNewsBox.innerHTML = ``;
+
+  const allView = [];
+
+  // allView.sort(function (a, b) { return b - a });
+  // allView.map(v => {
+  console.log(allView);
+
+  // console.log(b.total_view)
 
   allNews.forEach((news) => {
     // var size = Object.keys(myObj).length;
-    const {
+    let {
       _id,
       title,
       thumbnail_url,
       details,
       total_view,
-      author: { name, img, published_date },
+      author: { name, img },
     } = news;
+
+    // total_view.sort(function (a, b) { return b - a };
+
     let newsDiv = document.createElement("div");
     newsDiv.innerHTML = `
-    
+
+
     <div class="row g-0 justify-content-between align-items-center bg-white rounded p-3 my-4">
     <div class="col-md-3">
         <img class="img-fluid" src="${
@@ -122,7 +128,7 @@ const displayNewsByCategory = (allNews) => {
     <div class="col-md-9 py-2">
         <div class="news-text">
             <h2 class="fw-bold">${title}</h2>
-            <p>${carCounts(details)}</p>
+            <p>${charCounts(details)}</p>
         </div>
 
         <div class="d-flex justify-content-between align-items-center">
@@ -136,7 +142,7 @@ const displayNewsByCategory = (allNews) => {
 
             <div>
                 <i class="bi bi-eye"></i>
-                <span class="fw-bold">${total_view ? total_view : "NA"}</span>
+                <span class="fw-bold">${total_view}</span>
             </div>
 
             <div>
@@ -163,6 +169,8 @@ const displayNewsByCategory = (allNews) => {
   });
 };
 
+loadNews('08')
+
 // find details Id
 const detailsId = (news_id) => {
   loadDetailsData(news_id);
@@ -171,13 +179,13 @@ const detailsId = (news_id) => {
 const loadDetailsData = async (news_id) => {
   const url = `https://openapi.programming-hero.com/api/news/${news_id} 
   `;
-try {
-	  const res = await fetch(url);
-	  const data = await res.json();
-	  displayDetails(data.data);
-} catch (error) {
-  console.log('Error: Load Details', error);
-}
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    displayDetails(data.data);
+  } catch (error) {
+    console.log("Error: Load Details", error);
+  }
 };
 
 const displayDetails = (news_id) => {
