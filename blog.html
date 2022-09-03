@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToolBox | Blog</title>
+
+    <!-- Bootstrap CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
+
+    <!-- Main css  -->
+    <link rel="stylesheet" href="./asset/css/style.css" />
+</head>
+
+<body>
+    <header class="container">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container g-0">
+                <a class="navbar-brand fw-bolder logo" href="./index.html"><span class="logo1 px-3 py-2 rounded">Tech</span>
+                    <span class="px-2 py-1 rounded hero-bg">Toolbox</span></a>
+
+                <div class="d-flex hero-nav-right text-white px-5  py-1 rounded">
+                    <ul class="d-flex list-unstyled gap-3 mt-3 ms-auto me-3 me-lg-0 ">
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold " href="./index.html">Features</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold nav-active" href="./blog.html">Blog</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <hr>
+
+    </header>
+
+    <main class="container mt-5">
+        <section>
+            <h1 class="mb-4">Four most popular Question about JavaScript</h1>
+            <div class="bg-white py-3 px-2 rounded">
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button fw-semibold fs-5 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            Difference between Var Let and Constant
+                        </button>
+                      </h2>
+                      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <ul>
+                                <li>
+                                    var declarations are globally scoped or function scoped while let and const are block scoped.
+                                </li>
+                                <li>
+                                    var variables can be updated and re-declared within its scope; let variables can be updated but not re-declared; const variables can neither be updated nor re-declared.
+                                </li>
+                                <li>
+                                    They are all hoisted to the top of their scope. But while var variables are initialized with undefined, let and const variables are not initialized.
+                                </li>
+                                <li>
+                                    While var and let can be declared without being initialized, const must be initialized during declaration.
+                                </li>
+                            </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button fw-semibold fs-5 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            What is the difference between Arrow function and regular function in javascript
+                        </button>
+                      </h2>
+                      <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">Regular functions created using function declarations or expressions are constructible and callable. Since regular functions are constructible, they can be called using the new keyword.
+                
+                            However, the arrow functions are only callable and not constructible, i.e arrow functions can never be used as constructor functions.</div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button fw-semibold fs-5 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                            What is the difference between map and foreach in javascript
+                        </button>
+                      </h2>
+                      <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">The main difference between map and forEach is that the map method returns a new array by applying the callback function on each element of an array, while the forEach method doesn't return anything</div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-headingFour">
+                        <button class="accordion-button fw-semibold fs-5 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                            Why do we use template string in Javascript?
+                        </button>
+                      </h2>
+                      <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">Template strings are a powerful feature of modern JavaScript released in ES6. It lets us insert/interpolate variables and expressions into strings without needing to concatenate like in older versions of JavaScript. It allows us to create strings that are complex and contain dynamic elements</div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white mt-5">
+        <p class="text-center py-4">Copyright 2021 Tech Toolbox</p>
+    </footer>
+
+    <!--Bootstrap JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

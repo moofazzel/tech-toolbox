@@ -1,8 +1,12 @@
 const loadCategories = async () => {
   const url = "https://openapi.programming-hero.com/api/news/categories";
-  const res = await fetch(url);
-  const data = await res.json();
-  displayCategories(data.data.news_category);
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    displayCategories(data.data.news_category);
+  } catch (error) {
+    console.log("Error: Load Categories", error);
+  }
 };
 const mainNewsBox = document.getElementById("main-news-box");
 
@@ -69,9 +73,13 @@ const findId = (category_id) => {
 const loadNews = async (category_id) => {
   const url = `https://openapi.programming-hero.com/api/news/category/${category_id} 
   `;
-  const res = await fetch(url);
-  const data = await res.json();
-  displayNewsByCategory(data.data);
+  try {
+	const res = await fetch(url);
+	  const data = await res.json();
+	  displayNewsByCategory(data.data);
+} catch (error) {
+  console.log('Error: Load News', error);
+}
 };
 
 const displayNewsByCategory = (allNews) => {
@@ -163,9 +171,13 @@ const detailsId = (news_id) => {
 const loadDetailsData = async (news_id) => {
   const url = `https://openapi.programming-hero.com/api/news/${news_id} 
   `;
-  const res = await fetch(url);
-  const data = await res.json();
-  displayDetails(data.data);
+try {
+	  const res = await fetch(url);
+	  const data = await res.json();
+	  displayDetails(data.data);
+} catch (error) {
+  console.log('Error: Load Details', error);
+}
 };
 
 const displayDetails = (news_id) => {
