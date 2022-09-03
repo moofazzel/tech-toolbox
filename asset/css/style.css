@@ -15,9 +15,9 @@ body {
 }
 
 /* main css  */
-.logo {
+/* .logo {
   font-size: 2rem;
-}
+} */
 .logo1 {
   color: white;
   background-color: var(--main-color) !important;
@@ -32,7 +32,7 @@ body {
 }
 
 .hero-nav-right ul a {
-  font-size: 1.2em;
+  font-size: 1.0rem;
 }
 
 .hero-nav-right ul .nav-active {
@@ -53,11 +53,16 @@ body {
 }
 
 .categories-list{
-  font-size: 1.1em;
+  font-size: 1.0em;
   font-weight: 600;
   cursor: pointer;
   padding-bottom: 2px;
   transition: .3s;
+}
+
+.active{
+  color: black;
+  font-size: 1.15em;
 }
 
 .categories-list:hover{
@@ -91,4 +96,5 @@ body {
     font-size: 20px;
     color: var(--main-color);
 }
+
 

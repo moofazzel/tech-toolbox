@@ -1,13 +1,3 @@
-const loadCategories = async () => {
-  const url = "https://openapi.programming-hero.com/api/news/categories";
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
-    displayCategories(data.data.news_category);
-  } catch (error) {
-    console.log("Error: Load Categories", error);
-  }
-};
 const mainNewsBox = document.getElementById("main-news-box");
 
 const allCategories = document.getElementById("all-categories");
@@ -18,13 +8,27 @@ const allNewsTop = document.getElementById("all-news");
 const modalContent = document.getElementById("modal-content");
 const charCount = 20;
 
+
+
+const loadCategories = async () => {
+  const url = "https://openapi.programming-hero.com/api/news/categories";
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    displayCategories(data.data.news_category);
+  } catch (error) {
+    console.log("Error: Load Categories", error);
+  }
+};
+
+
 const displayCategories = (catagories) => {
   catagories.forEach((category) => {
     //   console.log(category);
 
     const li = document.createElement("li");
     li.innerHTML = `
-      <a onclick="findId('${category.category_id}', target)" >${category.category_name}</a>
+      <a onclick="findId('${category.category_id}')" >${category.category_name}</a>
     `;
     li.classList.add("categories-list");
     allCategories.appendChild(li);
@@ -59,14 +63,18 @@ toggleSpinner(false);
 const findId = (category_id) => {
   loadNews(category_id);
   toggleSpinner(true);
-  // console.log(dd)
+
+
+  const cc = document.querySelectorAll('.categories-list')
+ 
+  // cc.classList.add('active')
+  // console.log(cc)
 };
 
 
 const loadNews = async (category_id) => {
   const url = `https://openapi.programming-hero.com/api/news/category/${category_id} 
   `;
-  console.log(url)
   try {
     const res = await fetch(url);
     const data = await res.json();
@@ -85,20 +93,22 @@ const displayNewsByCategory = (allNews) => {
     allNewsTop.classList.add("d-none");
     toggleSpinner(false);
   } else {
+  // const cc = document.querySelectorAll('.categories-list')
+
     noResult.classList.add("d-none");
     resultFound.classList.remove("d-none");
     resultFound.innerText = `${allNewsLength} items found`;
     allNewsTop.classList.add("d-none");
   }
 
-  console.log(allNews);
+  
   mainNewsBox.innerHTML = ``;
 
   const allView = [];
 
   // allView.sort(function (a, b) { return b - a });
   // allView.map(v => {
-  console.log(allView);
+  
 
   // console.log(b.total_view)
 
@@ -119,13 +129,13 @@ const displayNewsByCategory = (allNews) => {
     newsDiv.innerHTML = `
 
 
-    <div class="row g-0 justify-content-between align-items-center bg-white rounded p-3 my-4">
-    <div class="col-md-3">
+    <div class="row justify-content-between align-items-center bg-white rounded p-3 my-4">
+    <div class="col-lg-3 text-center text-lg-start mb-3 mb-lg-0">
         <img class="img-fluid" src="${
           thumbnail_url ? thumbnail_url : " No Image Available"
         }" alt="">
     </div>
-    <div class="col-md-9 py-2">
+    <div class="col-lg-9 py-2">
         <div class="news-text">
             <h2 class="fw-bold">${title}</h2>
             <p>${charCounts(details)}</p>
