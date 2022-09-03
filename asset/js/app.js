@@ -21,8 +21,6 @@ const loadCategories = async () => {
 
 const displayCategories = (catagories) => {
   catagories.forEach((category) => {
-    //   console.log(category);
-
     const li = document.createElement("li");
     li.innerHTML = `
       <a onclick="findId('${category.category_id}','${category.category_name}')" >${category.category_name}</a>
@@ -74,6 +72,7 @@ const loadNews = async (category_id, name) => {
 };
 
 const displayNewsByCategory = (allNews, name) => {
+  // Total view sort more to short 
   const sort = allNews?.sort((a, b) => (a.total_view > b.total_view ? -1 : 1));
   // console.log(allNews);
   const allNewsLength = allNews.length;
@@ -87,13 +86,11 @@ const displayNewsByCategory = (allNews, name) => {
 
     noResult.classList.add("d-none");
     resultFound.classList.remove("d-none");
-    resultFound.innerText = `${allNewsLength} result found ${name? name:''}`;
+    resultFound.innerText = `${allNewsLength} result found ${name ? name : ""}`;
     allNewsTop.classList.add("d-none");
   }
 
   mainNewsBox.innerHTML = ``;
-
-  const allView = [];
 
   allNews.forEach((news) => {
     // var size = Object.keys(myObj).length;
@@ -110,8 +107,6 @@ const displayNewsByCategory = (allNews, name) => {
 
     let newsDiv = document.createElement("div");
     newsDiv.innerHTML = `
-
-
     <div class="row justify-content-between align-items-center bg-white rounded p-3 my-4">
     <div class="col-lg-3 text-center text-lg-start mb-3 mb-lg-0">
         <img class="img-fluid" src="${
@@ -126,7 +121,7 @@ const displayNewsByCategory = (allNews, name) => {
 
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex gap-3">
-                <img class="news-author rounded-circle" src="${img}" alt="">
+                <img class="news-author rounded-circle" src="${img?img:'No image found'}" alt="">
                 <h6>
                     <span class="d-block"> ${name ? name : "No Name"}</span>
                     <small class="d-block">jan 10, 2022</small>
@@ -135,7 +130,7 @@ const displayNewsByCategory = (allNews, name) => {
 
             <div>
                 <i class="bi bi-eye"></i>
-                <span class="fw-bold">${total_view}</span>
+                <span class="fw-bold">${total_view?total_view:'NA'}</span>
             </div>
 
             <div class="d-none d-sm-block">
@@ -148,7 +143,7 @@ const displayNewsByCategory = (allNews, name) => {
 
             <div>
             <!-- Button trigger modal -->
-            <button onclick="detailsId('${_id}')" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button onclick="detailsId('${_id?_id:"No Id"}')" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <i class="bi bi-arrow-right"></i>
             </button>
             </div>
@@ -197,18 +192,24 @@ const displayDetails = (news_id) => {
     detailsInsideModal.classList.add("modal-content");
     detailsInsideModal.innerHTML = `
                 <div class="modal-header">
-                <small class="d-block">${published_date}</small>
+                <small class="d-block">${
+                  published_date ? published_date : "NA"
+                }</small>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                   </button>
                 </div>
                 <div class="modal-body">
-                    <h5 class="modal-title pb-1" id="exampleModalLabel">${title}</h5>
-                    <img class="img-fluid" src=" ${image_url}" alt="">
+                    <h5 class="modal-title pb-1" id="exampleModalLabel">${
+                      title ? title : "No title"
+                    }</h5>
+                    <img class="img-fluid" src=" ${
+                      image_url ? image_url : "No image Found"
+                    }" alt="">
 
                     <div class="d-flex justify-content-between align-items-center mx-2 mt-1">
                     <div class="d-flex align-items-center">
                         <span class="border rounded bg-dark text-white py-1 px-2">Badge :</span>
-                        <span>${badge}</span>
+                        <span>${badge ? badge : "NA"}</span>
                     </div>
                     <span class="d-flex align-items-center">
                         <i class="bi bi-eye"></i>   
@@ -216,7 +217,7 @@ const displayDetails = (news_id) => {
                     </span>
                 </div>
 
-                <p class="pt-3">${details}</p>
+                <p class="pt-3">${details ? details: 'NA'}</p>
                 </div>
                 <hr>
                 <div class="row justify-content-between align-items-center pb-3 pe-3">
@@ -224,21 +225,20 @@ const displayDetails = (news_id) => {
                         <div class="d-flex justify-content-evenly align-items-center">
                             <div class="d-flex align-items-center gap-3">
                               <img class=" news-author rounded-circle"
-                                src="${img}" alt="">
-                              <span class="d-block"> ${name}</span>
+                                src="${img?img:'No image found'}" alt="">
+                              <span class="d-block"> ${name?name:'No Name Found'}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-3">
                     <div class="d-flex align-items-center me-2">
                         <span class="border rounded bg-dark text-white py-1 px-2 me-1">Rating:</span>
-                        <span> ${number}</span>
+                        <span> ${number?number:'NA'}</span>
                     </div>
                     </div>
                 </div>
     `;
     modalContent.appendChild(detailsInsideModal);
 
-    console.log(news);
   });
 };
